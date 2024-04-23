@@ -2,6 +2,7 @@
 #include <deque>
 #include <bits/stdc++.h>
 #include <regex>
+#include <cmath>
 using namespace std;
 
 #ifndef SOLVE_MY_MATH_EXAM_MATHINTERPTER_H
@@ -96,7 +97,7 @@ public:
 
 
 
-    void FetchOperatorSides(int mainIndex){
+    void FetchOperatorSides(int mainIndex, int typeOfOperation){
 string LHS,RHS;
 int arr[5];
         arr[0]= myMathStr.find('^',mainIndex+1);
@@ -160,32 +161,117 @@ int arr[5];
 
 int leftPos = (minIndexLHS == 1000000) ? minIndexLHS : reverseStr.length()-minIndexLHS-1;
 
-        CalcPortion(LHS,RHS,leftPos,minIndex);
+        CalcPortion(LHS,RHS,leftPos,minIndex, typeOfOperation);
 
     }
 
 
 
-    bool CalcPortion(string LHS, string RHS,int leftPos, int rightPos){
+    bool CalcPortion(string LHS, string RHS,int leftPos, int rightPos, int typeOfOperation ){
         bool acceptedfourmela  = true;
         double myLHS,myRHS;
+
+      bool LHSValid =  checkEquationRegex(LHS, myLHS);
+      bool RHSValid = checkEquationRegex(RHS, myRHS);
+
+        cout << myLHS <<" "<<myRHS<<endl;
+        if(!LHSValid || !RHSValid){
+            return false;
+        }
+        switch (typeOfOperation) {
+            case Opert::power: {
+                   long double output = pow(myLHS, myRHS) ;
+                   string insertInString = to_string(output);
+            }
+                break;
+            case Opert::multiplication: {
+                long double output = myLHS * myRHS ;
+                string insertInString = to_string(output);
+
+            }
+                break;
+            case Opert::division: {
+                long double output = myLHS / myRHS ;
+                string insertInString = to_string(output);
+
+            }
+                break;
+            case Opert::addition: {
+                long double output = myLHS + myRHS ;
+                string insertInString = to_string(output);
+
+            }
+                break;
+            case Opert::substraction: {
+                long double output = myLHS - myRHS ;
+                string insertInString = to_string(output);
+
+            }
+                break;
+            defualt: return false;
+
+        }
+
+
+
+        return true;
+    }
+
+    bool checkEquationRegex(string portion, double &output){
         //unfortunately switch statemtns are only available for integers and chars, so yeah get ready for the ultimate:
         // if else if else if else if else if else......
-        cout <<LHS<<endl;
-        regex cosRegex("cos\\(\\s*\\d+\\s*\\)");
+        regex numOnlyRegex("^[0-9]+$");
+        regex sinRegex("sin\\(.*\\)");
+        regex cosRegex("cos\\(.*\\)");
+        regex tanRegex("tan\\(.*\\)");
 
 
 
+        if(regex_match(portion, numOnlyRegex)){
+            output = stod(portion);
+            return true;
+        }
 
+        else if(regex_match(portion, sinRegex)){
+            regex sinNum("sin\\(\\s*\\d+\\s*\\)");
+            if(regex_match(portion, sinNum)){
+                output = stod(portion.substr(4,portion.length()-5));
+                output= sin(output * (M_PI/180));
+                return true;
+            }
+        }
+
+        else if(regex_match(portion, cosRegex)){
+            regex cosNum("cos\\(\\s*\\d+\\s*\\)");
+            if(regex_match(portion, cosNum)){
+                output = stod(portion.substr(4,portion.length()-5));
+                output= cos(output * (M_PI/180));
+                return true;
+            }
+        }
+
+        else if(regex_match(portion, tanRegex)){
+            regex tanNum("tan\\(\\s*\\d+\\s*\\)");
+            if(regex_match(portion, tanNum)){
+                output = stod(portion.substr(4,portion.length()-5));
+                output= tan(output * (M_PI/180));
+                return true;
+            }
+        }
+
+        else {
+            return false;
+        }
+        return false;
     }
 
     void MainOperation(){
 
-        myMathStr= "cos(2)^cos(2)*aaa";
+        myMathStr= "sin(2)^tan(2)*aaa";
         transform(myMathStr.begin(), myMathStr.end(), myMathStr.begin(), ::tolower);
         InterptmyMath();
         //for(int i=0; i<PowerIndecies.size(); i++){
-        FetchOperatorSides(PowerIndecies[0]);
+        FetchOperatorSides(PowerIndecies[0], Opert::power);
         //}
 
     }
