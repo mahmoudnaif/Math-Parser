@@ -6,5 +6,5 @@ using namespace std;
 
 int main() {
 MathInterpter x;
-    x.MainOperation();
+x.UserUI();
 }

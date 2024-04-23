@@ -29,26 +29,14 @@ public:
          AdditionIndecies.clear();
          SubstractIndecies.clear();
 
-
-
-        if(myMathStr[0] == '+' || myMathStr[0] == '-' || myMathStr[0] == '*' ||myMathStr[0] == '/' || myMathStr[0] == '^'
-        || myMathStr[myMathStr.length()-1] == '+' || myMathStr[myMathStr.length()-1] == '-' ||
-        myMathStr[myMathStr.length()-1] == '*' ||myMathStr[myMathStr.length()-1] == '/' || myMathStr[myMathStr.length()-1] == '^'){
-                \
-            //Enter name Function
-            return;
-
-        }
-
-
-        int tempPowerIndex=0;
+         /*int tempPowerIndex=0;
         int tempMUltiIndex=0;
         int tempDivideIndex=0;
         int tempADDIndex=0;
         int tempMinutsIndex=0;
 
 
-        do{
+        /*do{
 
 
             if(tempPowerIndex!=0 && string::npos != tempPowerIndex){
@@ -93,7 +81,41 @@ public:
 
 
         } while (string::npos != tempPowerIndex || string::npos != tempMUltiIndex || string::npos != tempDivideIndex ||
-                string::npos != tempADDIndex || string::npos != tempMinutsIndex );
+                string::npos != tempADDIndex || string::npos != tempMinutsIndex );*/
+
+
+
+         int captureOperators= 0;
+        for(int i=0; i<myMathStr.length(); i++){
+            if(myMathStr[i] == '('){
+               captureOperators++;
+            }
+            if(captureOperators != 0 ){
+
+                if(myMathStr[i] == ')')
+                    captureOperators--;
+                continue;
+            }
+            else{
+                if(myMathStr[i] == '^'){
+                 PowerIndecies.push_back(i);
+                }
+                else if(myMathStr[i] == '*'){
+                    MultiplayIndecies.push_back(i);
+                }
+                else if(myMathStr[i] == '/'){
+                    DivisionIndecies.push_back(i);
+                }
+                else if(myMathStr[i] == '+'){
+                    AdditionIndecies.push_back(i);
+                }
+                else if(myMathStr[i] == '-'){
+                    SubstractIndecies.push_back(i);
+                }
+            }
+
+
+        }
 
 
 
@@ -104,9 +126,19 @@ public:
 
 
 
-    void FetchOperatorSides(int mainIndex, int typeOfOperation){
+    bool FetchOperatorSides(int mainIndex, int typeOfOperation){
+        if(myMathStr[0] == '+' || myMathStr[0] == '-' || myMathStr[0] == '*' ||myMathStr[0] == '/' || myMathStr[0] == '^'
+           || myMathStr[myMathStr.length()-1] == '+' || myMathStr[myMathStr.length()-1] == '-' ||
+           myMathStr[myMathStr.length()-1] == '*' ||myMathStr[myMathStr.length()-1] == '/' || myMathStr[myMathStr.length()-1] == '^'){
+            \
+            //Enter name Function
+            return false;
+
+        }
+
+
 string LHS,RHS;
-int arr[5];
+/*int arr[5];
         arr[0]= myMathStr.find('^',mainIndex+1);
         arr[1] = myMathStr.find('*',mainIndex+1);
         arr[2]  = myMathStr.find('/',mainIndex+1);
@@ -118,7 +150,33 @@ int arr[5];
                 if(arr[i] !=string ::npos&& arr[i]< minIndex)
                     minIndex = arr[i];
 
+            }*/
+        int minIndex=1000000;
+        for(int i=0; i<PowerIndecies.size(); i++){
+            if(PowerIndecies[i] > mainIndex && PowerIndecies[i]<minIndex){
+                minIndex = PowerIndecies[i];
             }
+        }
+        for(int i=0; i<MultiplayIndecies.size(); i++){
+            if(MultiplayIndecies[i] > mainIndex && MultiplayIndecies[i]<minIndex){
+                minIndex = MultiplayIndecies[i];
+            }
+        }
+        for(int i=0; i<DivisionIndecies.size(); i++){
+            if(DivisionIndecies[i] > mainIndex && DivisionIndecies[i]<minIndex){
+                minIndex = DivisionIndecies[i];
+            }
+        }
+        for(int i=0; i<AdditionIndecies.size(); i++){
+            if(AdditionIndecies[i] > mainIndex && AdditionIndecies[i]<minIndex){
+                minIndex = AdditionIndecies[i];
+            }
+        }
+        for(int i=0; i<SubstractIndecies.size(); i++){
+            if(SubstractIndecies[i] > mainIndex && SubstractIndecies[i]<minIndex){
+                minIndex = SubstractIndecies[i];
+            }
+        }
 
             if (minIndex == 1000000){
                 RHS = myMathStr.substr(mainIndex + 1,myMathStr.length()-(mainIndex+1));
@@ -138,6 +196,7 @@ int arr[5];
             }
 
         int newMainIndex= reverseStr.length()-mainIndex-1;
+            /*int arr[5];
         arr[0]= reverseStr.find('^',newMainIndex+1);
         arr[1] = reverseStr.find('*',newMainIndex+1);
         arr[2]  = reverseStr.find('/',newMainIndex+1);
@@ -153,6 +212,32 @@ int arr[5];
 
 
 
+        }*/
+        int minIndexLHS=1000000;
+        for(int i=0; i<PowerIndecies.size(); i++){
+            if(reverseStr.length()-PowerIndecies[i]-1 > newMainIndex && reverseStr.length()-PowerIndecies[i]-1<minIndexLHS){
+                minIndexLHS = reverseStr.length()-PowerIndecies[i]-1;
+            }
+        }
+        for(int i=0; i<MultiplayIndecies.size(); i++){
+            if(reverseStr.length()-MultiplayIndecies[i]-1 > newMainIndex && reverseStr.length()-MultiplayIndecies[i]-1<minIndexLHS){
+                minIndexLHS = reverseStr.length()-MultiplayIndecies[i]-1;
+            }
+        }
+        for(int i=0; i<DivisionIndecies.size(); i++){
+            if(reverseStr.length()-DivisionIndecies[i]-1 > newMainIndex && reverseStr.length()-DivisionIndecies[i]-1<minIndexLHS){
+                minIndexLHS = reverseStr.length()-DivisionIndecies[i]-1;
+            }
+        }
+        for(int i=0; i<AdditionIndecies.size(); i++){
+            if(reverseStr.length()-AdditionIndecies[i]-1 > newMainIndex && reverseStr.length()-AdditionIndecies[i]-1<minIndexLHS){
+                minIndexLHS = reverseStr.length()-AdditionIndecies[i]-1;
+            }
+        }
+        for(int i=0; i<SubstractIndecies.size(); i++){
+            if(reverseStr.length()-SubstractIndecies[i]-1 > newMainIndex && reverseStr.length()-SubstractIndecies[i]-1<minIndexLHS){
+                minIndexLHS = reverseStr.length()-SubstractIndecies[i]-1;
+            }
         }
 
 
@@ -170,9 +255,11 @@ int arr[5];
             swap(LHS[i], LHS[LHS.length()-i-1]);
         }
 
-int leftPos = (minIndexLHS == 1000000) ? minIndexLHS : reverseStr.length()-minIndexLHS-1;
+        int leftPos = (minIndexLHS == 1000000) ? minIndexLHS : reverseStr.length()-minIndexLHS-1;
 
-        CalcPortion(LHS,RHS,leftPos,minIndex, typeOfOperation);
+    return CalcPortion(LHS,RHS,leftPos,minIndex, typeOfOperation);
+
+
 
     }
 
@@ -260,26 +347,17 @@ int leftPos = (minIndexLHS == 1000000) ? minIndexLHS : reverseStr.length()-minIn
 
         };
         InterptmyMath();
-
-
-
-
-
-
-
-
-
         return true;
     }
 
     bool checkEquationRegex(string portion, double &output){
         //unfortunately switch statemtns are only available for integers and chars, so yeah get ready for the ultimate:
         // if else if else if else if else if else......
+
         regex numOnlyRegex("(?:\\d+\\.?\\d*|\\.\\d+)");
         regex sinRegex("sin\\(.*\\)");
         regex cosRegex("cos\\(.*\\)");
         regex tanRegex("tan\\(.*\\)");
-
 
 
         if(regex_match(portion, numOnlyRegex)){
@@ -294,6 +372,24 @@ int leftPos = (minIndexLHS == 1000000) ? minIndexLHS : reverseStr.length()-minIn
                 output= sin(output * (M_PI/180));
                 return true;
             }
+            else{
+                string holdRealStr = myMathStr;
+                myMathStr= portion.substr(4,portion.length()-5);
+
+                double results;
+                if(MainOperation(results)){
+
+                    output = sin(results * (M_PI/180));
+                    myMathStr = holdRealStr;
+                    return true;
+                }
+                else{
+                    return false;
+                }
+
+            }
+
+
         }
 
         else if(regex_match(portion, cosRegex)){
@@ -302,6 +398,25 @@ int leftPos = (minIndexLHS == 1000000) ? minIndexLHS : reverseStr.length()-minIn
                 output = stod(portion.substr(4,portion.length()-5));
                 output= cos(output * (M_PI/180));
                 return true;
+            }
+            else{
+                string holdRealStr = myMathStr;
+                myMathStr= portion.substr(4,portion.length()-5);
+
+                double results;
+                if(MainOperation(results)){
+
+                    output = cos(results * (M_PI/180));
+                    myMathStr = holdRealStr;
+                    return true;
+                }
+                else{
+
+
+
+                    return false;
+                }
+
             }
         }
 
@@ -312,9 +427,45 @@ int leftPos = (minIndexLHS == 1000000) ? minIndexLHS : reverseStr.length()-minIn
                 output= tan(output * (M_PI/180));
                 return true;
             }
+            else{
+                string holdRealStr = myMathStr;
+                myMathStr= portion.substr(4,portion.length()-5);
+
+                double results;
+                if(MainOperation(results)){
+
+                    output = tan(results * (M_PI/180));
+                    myMathStr = holdRealStr;
+                    return true;
+                }
+                else{
+                    return false;
+                }
+
+            }
+        }
+
+        else if(portion[0] == '(' && portion[portion.length()-1] == ')'){
+
+            string holdRealStr = myMathStr;
+            myMathStr= portion.substr(1,portion.length()-2);
+
+            double results;
+            if(MainOperation(results)){
+
+                output = results;
+                myMathStr = holdRealStr;
+                return true;
+            }
+            else{
+                return false;
+            }
+
+
         }
 
         else {
+
             return false;
         }
         return false;
@@ -367,9 +518,8 @@ int leftPos = (minIndexLHS == 1000000) ? minIndexLHS : reverseStr.length()-minIn
 
     }
 */
-    void MainOperation(){
+    double MainOperation(double &output){
 
-        myMathStr= "cos(3)*cos(2)";
         transform(myMathStr.begin(), myMathStr.end(), myMathStr.begin(), ::tolower);
         InterptmyMath();
         unsigned int powerNum = PowerIndecies.size();
@@ -378,30 +528,80 @@ int leftPos = (minIndexLHS == 1000000) ? minIndexLHS : reverseStr.length()-minIn
         unsigned int addNum = AdditionIndecies.size();
         unsigned int subNum = SubstractIndecies.size();
 
-
+        bool isCorrect;
         for(int i=0; i<powerNum; i++){
-       FetchOperatorSides(PowerIndecies[0], Opert::power);
-            InterptmyMath();
+            isCorrect = FetchOperatorSides(PowerIndecies[0], Opert::power);
+            if(!isCorrect)
+                return false;
 
+            InterptmyMath();
         }
         for(int i=0; i<multNum; i++){
-            FetchOperatorSides(MultiplayIndecies[0], Opert::multiplication);
+            isCorrect =FetchOperatorSides(MultiplayIndecies[0], Opert::multiplication);
+            if(!isCorrect)
+                return false;
             InterptmyMath();
         }
 
         for(int i=0; i<divNum; i++){
-            FetchOperatorSides(DivisionIndecies[0], Opert::division);
+            isCorrect = FetchOperatorSides(DivisionIndecies[0], Opert::division);
+            if(!isCorrect)
+                return false;
             InterptmyMath();
         }
         for(int i=0; i<addNum; i++){
-            FetchOperatorSides(AdditionIndecies[0], Opert::addition);
+            isCorrect =FetchOperatorSides(AdditionIndecies[0], Opert::addition);
+            if(!isCorrect)
+                return false;
             InterptmyMath();
         }
         for(int i=0; i<subNum; i++){
-            FetchOperatorSides(SubstractIndecies[0], Opert::substraction);
+            isCorrect =  FetchOperatorSides(SubstractIndecies[0], Opert::substraction);
+            if(!isCorrect)
+                return false;
             InterptmyMath();
         }
-        cout <<myMathStr;
+
+        try {
+            output = stod(myMathStr);
+            return true;
+        }
+
+        catch (invalid_argument x){
+            double myOutput;
+            bool its1argument = checkEquationRegex(myMathStr, myOutput );
+            if(its1argument){
+                output = myOutput;
+                return true;
+                }
+
+            return false;
+        }
+
+    }
+
+
+
+
+
+  void UserUI(){
+        int startofProgram =0;
+        double resualt;
+        bool isCorrectfourmela;
+        myMathStr="";
+        while(myMathStr != "0") {
+            if (startofProgram != 0) {
+               isCorrectfourmela =  MainOperation(resualt);
+                if(!isCorrectfourmela)
+                    cout <<"make sure you enter a correct fourmela\n";
+                else
+                    cout <<resualt<<endl;
+            }
+
+            startofProgram++;
+            cout <<endl<< "please enter the equation: \nif you want to terminate enter 0" << endl;
+            cin >> myMathStr;
+        }
     }
 
 };
