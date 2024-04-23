@@ -96,7 +96,8 @@ public:
                     captureOperators--;
                 continue;
             }
-            else{
+            else if(i!=0){
+
                 if(myMathStr[i] == '^'){
                  PowerIndecies.push_back(i);
                 }
