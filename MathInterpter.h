@@ -23,6 +23,13 @@ public:
 
     void InterptmyMath()
     {
+         PowerIndecies.clear();
+         MultiplayIndecies.clear();
+         DivisionIndecies.clear();
+         AdditionIndecies.clear();
+         SubstractIndecies.clear();
+
+
 
         if(myMathStr[0] == '+' || myMathStr[0] == '-' || myMathStr[0] == '*' ||myMathStr[0] == '/' || myMathStr[0] == '^'
         || myMathStr[myMathStr.length()-1] == '+' || myMathStr[myMathStr.length()-1] == '-' ||
@@ -130,21 +137,25 @@ int arr[5];
                 swap(reverseStr[i], reverseStr[reverseStr.length()-i-1]);
             }
 
+        int newMainIndex= reverseStr.length()-mainIndex-1;
+        arr[0]= reverseStr.find('^',newMainIndex+1);
+        arr[1] = reverseStr.find('*',newMainIndex+1);
+        arr[2]  = reverseStr.find('/',newMainIndex+1);
+        arr[3]  = reverseStr.find('+',newMainIndex+1);
+        arr[4] = reverseStr.find('-',newMainIndex+1);
 
-        arr[0]= reverseStr.find('^',mainIndex+1);
-        arr[1] = reverseStr.find('*',mainIndex+1);
-        arr[2]  = reverseStr.find('/',mainIndex+1);
-        arr[3]  = reverseStr.find('+',mainIndex+1);
-        arr[4] = reverseStr.find('-',mainIndex+1);
 
         int minIndexLHS=1000000;
-        for(int i=1; i<5; i++){
-            if(arr[i] !=string ::npos&& arr[i]< minIndexLHS)
+        for(int i=1; i<5; i++) {
+            if (arr[i] != string::npos && arr[i] < minIndexLHS) {
                 minIndexLHS = arr[i];
+            }
+
+
 
         }
 
-    int newMainIndex= reverseStr.length()-mainIndex-1;
+
         if (minIndexLHS == 1000000){
 
             LHS = reverseStr.substr(newMainIndex + 1,reverseStr.length()-(newMainIndex+1));
@@ -174,43 +185,87 @@ int leftPos = (minIndexLHS == 1000000) ? minIndexLHS : reverseStr.length()-minIn
       bool LHSValid =  checkEquationRegex(LHS, myLHS);
       bool RHSValid = checkEquationRegex(RHS, myRHS);
 
-        cout << myLHS <<" "<<myRHS<<endl;
+
         if(!LHSValid || !RHSValid){
+
             return false;
         }
+        string insertInString;
         switch (typeOfOperation) {
             case Opert::power: {
                    long double output = pow(myLHS, myRHS) ;
-                   string insertInString = to_string(output);
+
+                    insertInString = to_string(output);
             }
                 break;
             case Opert::multiplication: {
                 long double output = myLHS * myRHS ;
-                string insertInString = to_string(output);
+                 insertInString = to_string(output);
 
             }
                 break;
             case Opert::division: {
                 long double output = myLHS / myRHS ;
-                string insertInString = to_string(output);
+                 insertInString = to_string(output);
 
             }
                 break;
             case Opert::addition: {
                 long double output = myLHS + myRHS ;
-                string insertInString = to_string(output);
+                 insertInString = to_string(output);
 
             }
                 break;
             case Opert::substraction: {
                 long double output = myLHS - myRHS ;
-                string insertInString = to_string(output);
+                 insertInString = to_string(output);
 
             }
                 break;
+
             defualt: return false;
 
         }
+
+        string oldStr=myMathStr;
+
+        if(leftPos==1000000 && rightPos==1000000 ){
+
+            myMathStr= insertInString;
+
+        }
+        else if(leftPos==1000000 && rightPos!=1000000){
+           string tempStr=insertInString;
+            for(int i=rightPos; i<myMathStr.length(); i++ ){
+                tempStr+= myMathStr[i];
+            }
+
+            myMathStr=tempStr;
+
+
+        }
+
+        else if(rightPos==1000000 && leftPos!=1000000){
+
+            myMathStr = myMathStr.substr(0,leftPos+1)+insertInString;
+
+
+
+        }
+
+        else {
+            string firstportion= myMathStr.substr(0,leftPos+1);
+            string secondportion=myMathStr.substr(rightPos,myMathStr.length()-rightPos);
+            myMathStr = firstportion+ insertInString +secondportion;
+
+        };
+        InterptmyMath();
+
+
+
+
+
+
 
 
 
@@ -220,7 +275,7 @@ int leftPos = (minIndexLHS == 1000000) ? minIndexLHS : reverseStr.length()-minIn
     bool checkEquationRegex(string portion, double &output){
         //unfortunately switch statemtns are only available for integers and chars, so yeah get ready for the ultimate:
         // if else if else if else if else if else......
-        regex numOnlyRegex("^[0-9]+$");
+        regex numOnlyRegex("(?:\\d+\\.?\\d*|\\.\\d+)");
         regex sinRegex("sin\\(.*\\)");
         regex cosRegex("cos\\(.*\\)");
         regex tanRegex("tan\\(.*\\)");
@@ -233,7 +288,7 @@ int leftPos = (minIndexLHS == 1000000) ? minIndexLHS : reverseStr.length()-minIn
         }
 
         else if(regex_match(portion, sinRegex)){
-            regex sinNum("sin\\(\\s*\\d+\\s*\\)");
+            regex sinNum("sin\\(\\s*(?:\\d+(?:\\.\\d+)?\\s*(?:/\\s*\\d+(?:\\.\\d+)?)?|\\d*(?:\\.\\d+)?\\s*/\\s*\\d+(?:\\.\\d+)?)\\s*\\)");
             if(regex_match(portion, sinNum)){
                 output = stod(portion.substr(4,portion.length()-5));
                 output= sin(output * (M_PI/180));
@@ -242,7 +297,7 @@ int leftPos = (minIndexLHS == 1000000) ? minIndexLHS : reverseStr.length()-minIn
         }
 
         else if(regex_match(portion, cosRegex)){
-            regex cosNum("cos\\(\\s*\\d+\\s*\\)");
+            regex cosNum("cos\\(\\s*(?:\\d+(?:\\.\\d+)?\\s*(?:/\\s*\\d+(?:\\.\\d+)?)?|\\d*(?:\\.\\d+)?\\s*/\\s*\\d+(?:\\.\\d+)?)\\s*\\)");
             if(regex_match(portion, cosNum)){
                 output = stod(portion.substr(4,portion.length()-5));
                 output= cos(output * (M_PI/180));
@@ -251,7 +306,7 @@ int leftPos = (minIndexLHS == 1000000) ? minIndexLHS : reverseStr.length()-minIn
         }
 
         else if(regex_match(portion, tanRegex)){
-            regex tanNum("tan\\(\\s*\\d+\\s*\\)");
+            regex tanNum("tan\\(\\s*(?:\\d+(?:\\.\\d+)?\\s*(?:/\\s*\\d+(?:\\.\\d+)?)?|\\d*(?:\\.\\d+)?\\s*/\\s*\\d+(?:\\.\\d+)?)\\s*\\)");
             if(regex_match(portion, tanNum)){
                 output = stod(portion.substr(4,portion.length()-5));
                 output= tan(output * (M_PI/180));
@@ -265,15 +320,88 @@ int leftPos = (minIndexLHS == 1000000) ? minIndexLHS : reverseStr.length()-minIn
         return false;
     }
 
+
+    /*void updateIndecies(string oldStr){
+
+        if(oldStr.length()<myMathStr.length()){
+            long int difference = myMathStr.length()-oldStr.length();
+
+            for(int i=0; i<PowerIndecies.size(); i++){
+                PowerIndecies[i]= PowerIndecies[i] + difference;
+            }
+
+            for(int i=0; i<MultiplayIndecies.size(); i++){
+                MultiplayIndecies[i]= MultiplayIndecies[i] + difference;
+            }
+            for(int i=0; i<DivisionIndecies.size(); i++){
+                DivisionIndecies[i]= DivisionIndecies[i] + difference;
+            }
+            for(int i=0; i<AdditionIndecies.size(); i++){
+                AdditionIndecies[i]= AdditionIndecies[i] + difference;
+            }
+            for(int i=0; i<SubstractIndecies.size(); i++){
+                SubstractIndecies[i]= SubstractIndecies[i] + difference;
+            }
+
+        }
+        else if(oldStr.length()>myMathStr.length()){
+            long int difference = oldStr.length()-myMathStr.length();
+            for(int i=0; i<PowerIndecies.size(); i++){
+                PowerIndecies[i]= PowerIndecies[i] - difference;
+            }
+
+            for(int i=0; i<MultiplayIndecies.size(); i++){
+                MultiplayIndecies[i]= MultiplayIndecies[i] - difference;
+            }
+            for(int i=0; i<DivisionIndecies.size(); i++){
+                DivisionIndecies[i]= DivisionIndecies[i] - difference;
+            }
+            for(int i=0; i<AdditionIndecies.size(); i++){
+                AdditionIndecies[i]= AdditionIndecies[i] - difference;
+            }
+            for(int i=0; i<SubstractIndecies.size(); i++){
+                SubstractIndecies[i]= SubstractIndecies[i] - difference;
+            }
+
+        }
+
+    }
+*/
     void MainOperation(){
 
-        myMathStr= "sin(2)^tan(2)*aaa";
+        myMathStr= "cos(3)*cos(2)";
         transform(myMathStr.begin(), myMathStr.end(), myMathStr.begin(), ::tolower);
         InterptmyMath();
-        //for(int i=0; i<PowerIndecies.size(); i++){
-        FetchOperatorSides(PowerIndecies[0], Opert::power);
-        //}
+        unsigned int powerNum = PowerIndecies.size();
+        unsigned int multNum = MultiplayIndecies.size();
+        unsigned int divNum = DivisionIndecies.size();
+        unsigned int addNum = AdditionIndecies.size();
+        unsigned int subNum = SubstractIndecies.size();
 
+
+        for(int i=0; i<powerNum; i++){
+       FetchOperatorSides(PowerIndecies[0], Opert::power);
+            InterptmyMath();
+
+        }
+        for(int i=0; i<multNum; i++){
+            FetchOperatorSides(MultiplayIndecies[0], Opert::multiplication);
+            InterptmyMath();
+        }
+
+        for(int i=0; i<divNum; i++){
+            FetchOperatorSides(DivisionIndecies[0], Opert::division);
+            InterptmyMath();
+        }
+        for(int i=0; i<addNum; i++){
+            FetchOperatorSides(AdditionIndecies[0], Opert::addition);
+            InterptmyMath();
+        }
+        for(int i=0; i<subNum; i++){
+            FetchOperatorSides(SubstractIndecies[0], Opert::substraction);
+            InterptmyMath();
+        }
+        cout <<myMathStr;
     }
 
 };
