@@ -41,52 +41,9 @@ public:
     bool checkEquationRegex(string portion, double &output);
 
 
-    /*void updateIndecies(string oldStr){
+void updateIndecies(string oldStr);
 
-        if(oldStr.length()<myMathStr.length()){
-            long int difference = myMathStr.length()-oldStr.length();
 
-            for(int i=0; i<PowerIndecies.size(); i++){
-                PowerIndecies[i]= PowerIndecies[i] + difference;
-            }
-
-            for(int i=0; i<MultiplayIndecies.size(); i++){
-                MultiplayIndecies[i]= MultiplayIndecies[i] + difference;
-            }
-            for(int i=0; i<DivisionIndecies.size(); i++){
-                DivisionIndecies[i]= DivisionIndecies[i] + difference;
-            }
-            for(int i=0; i<AdditionIndecies.size(); i++){
-                AdditionIndecies[i]= AdditionIndecies[i] + difference;
-            }
-            for(int i=0; i<SubstractIndecies.size(); i++){
-                SubstractIndecies[i]= SubstractIndecies[i] + difference;
-            }
-
-        }
-        else if(oldStr.length()>myMathStr.length()){
-            long int difference = oldStr.length()-myMathStr.length();
-            for(int i=0; i<PowerIndecies.size(); i++){
-                PowerIndecies[i]= PowerIndecies[i] - difference;
-            }
-
-            for(int i=0; i<MultiplayIndecies.size(); i++){
-                MultiplayIndecies[i]= MultiplayIndecies[i] - difference;
-            }
-            for(int i=0; i<DivisionIndecies.size(); i++){
-                DivisionIndecies[i]= DivisionIndecies[i] - difference;
-            }
-            for(int i=0; i<AdditionIndecies.size(); i++){
-                AdditionIndecies[i]= AdditionIndecies[i] - difference;
-            }
-            for(int i=0; i<SubstractIndecies.size(); i++){
-                SubstractIndecies[i]= SubstractIndecies[i] - difference;
-            }
-
-        }
-
-    }
-*/
     double MainOperation(double &output);
 
 

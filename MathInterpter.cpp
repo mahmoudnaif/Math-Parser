@@ -491,34 +491,37 @@ double MathInterpter::MainOperation(double &output){
         if(!isCorrect)
             return false;
 
-        InterptmyMath();
-    }
-    for(int i=0; i<multNum; i++){
-        isCorrect =FetchOperatorSides(MultiplayIndecies[0], Opert::multiplication);
-        if(!isCorrect)
-            return false;
-        InterptmyMath();
-    }
 
-    for(int i=0; i<divNum; i++){
-        isCorrect = FetchOperatorSides(DivisionIndecies[0], Opert::division);
-        if(!isCorrect)
-            return false;
-        InterptmyMath();
     }
-    for(int i=0; i<addNum; i++){
-        isCorrect =FetchOperatorSides(AdditionIndecies[0], Opert::addition);
-        if(!isCorrect)
-            return false;
-        InterptmyMath();
-    }
-    for(int i=0; i<subNum; i++){
-        isCorrect =  FetchOperatorSides(SubstractIndecies[0], Opert::substraction);
-        if(!isCorrect)
-            return false;
-        InterptmyMath();
-    }
+    for(int i=0; i<multNum+divNum; i++){
+        if(MultiplayIndecies.size()>0 && DivisionIndecies.size() == 0 || MultiplayIndecies.size() > 0
+            && MultiplayIndecies[0] < DivisionIndecies[0]) {
+            isCorrect =FetchOperatorSides(MultiplayIndecies[0], Opert::multiplication);
+            if(!isCorrect)
+                return false;
+        }
+        else {
 
+             isCorrect = FetchOperatorSides(DivisionIndecies[0], Opert::division);
+        if(!isCorrect)
+            return false;
+        }
+    }
+    for(int i=0; i<addNum+subNum; i++){
+        if(AdditionIndecies.size()>0 && SubstractIndecies.size() == 0 || AdditionIndecies.size() > 0
+         && AdditionIndecies[0] < SubstractIndecies[0]) {
+            isCorrect =FetchOperatorSides(AdditionIndecies[0], Opert::addition);
+            if(!isCorrect)
+                return false;
+        }
+        else {
+
+             isCorrect =  FetchOperatorSides(SubstractIndecies[0], Opert::substraction);
+        if(!isCorrect)
+            return false;
+
+        }
+    }
 
 
     try {
