@@ -3,11 +3,16 @@
 #include <bits/stdc++.h>
 #include <regex>
 #include <cmath>
+#include <numeric>
 using namespace std;
 
 #ifndef SOLVE_MY_MATH_EXAM_MATHINTERPTER_H
 #define SOLVE_MY_MATH_EXAM_MATHINTERPTER_H
 
+struct LastAns {
+    bool exists;
+    double lastans;
+};
 
 class MathInterpter {
 private:
@@ -17,7 +22,7 @@ private:
     deque<int> AdditionIndecies;
     deque<int> SubstractIndecies;
     string myMathStr;
-
+   LastAns last_ans_ = {false,0};
 public:
     enum Opert{power,multiplication,division,addition,substraction};
 

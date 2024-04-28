@@ -336,21 +336,22 @@ bool MathInterpter::checkEquationRegex(string portion, double &output){
     regex sinRegex("sin\\(.*\\)");
     regex cosRegex("cos\\(.*\\)");
     regex tanRegex("tan\\(.*\\)");
-
+    regex factorRegex("\\d+!");
+    regex logRegex("log\\[\\d+(\\.\\d+)?\\]\\(\\d+(\\.\\d+)?\\)");
 
     if(regex_match(portion, numOnlyRegex)){
         output = stod(portion);
         return true;
     }
 
-    else if(regex_match(portion, sinRegex)){
+    if(regex_match(portion, sinRegex)){
         regex sinNum("sin\\(\\s*(?:\\d+(?:\\.\\d+)?\\s*(?:/\\s*\\d+(?:\\.\\d+)?)?|\\d*(?:\\.\\d+)?\\s*/\\s*\\d+(?:\\.\\d+)?)\\s*\\)");
         if(regex_match(portion, sinNum)){
             output = stod(portion.substr(4,portion.length()-5));
             output= sin(output * (M_PI/180));
             return true;
         }
-        else{
+
             string holdRealStr = myMathStr;
             myMathStr= portion.substr(4,portion.length()-5);
 
@@ -361,23 +362,23 @@ bool MathInterpter::checkEquationRegex(string portion, double &output){
                 myMathStr = holdRealStr;
                 return true;
             }
-            else{
-                return false;
-            }
 
-        }
+                return false;
+
+
+
 
 
     }
 
-    else if(regex_match(portion, cosRegex)){
+    if(regex_match(portion, cosRegex)){
         regex cosNum("cos\\(\\s*(?:\\d+(?:\\.\\d+)?\\s*(?:/\\s*\\d+(?:\\.\\d+)?)?|\\d*(?:\\.\\d+)?\\s*/\\s*\\d+(?:\\.\\d+)?)\\s*\\)");
         if(regex_match(portion, cosNum)){
             output = stod(portion.substr(4,portion.length()-5));
             output= cos(output * (M_PI/180));
             return true;
         }
-        else{
+
             string holdRealStr = myMathStr;
             myMathStr= portion.substr(4,portion.length()-5);
 
@@ -388,24 +389,24 @@ bool MathInterpter::checkEquationRegex(string portion, double &output){
                 myMathStr = holdRealStr;
                 return true;
             }
-            else{
+
 
 
 
                 return false;
-            }
 
-        }
+
+
     }
 
-    else if(regex_match(portion, tanRegex)){
+    if(regex_match(portion, tanRegex)){
         regex tanNum("tan\\(\\s*(?:\\d+(?:\\.\\d+)?\\s*(?:/\\s*\\d+(?:\\.\\d+)?)?|\\d*(?:\\.\\d+)?\\s*/\\s*\\d+(?:\\.\\d+)?)\\s*\\)");
         if(regex_match(portion, tanNum)){
             output = stod(portion.substr(4,portion.length()-5));
             output= tan(output * (M_PI/180));
             return true;
         }
-        else{
+
             string holdRealStr = myMathStr;
             myMathStr= portion.substr(4,portion.length()-5);
 
@@ -416,14 +417,34 @@ bool MathInterpter::checkEquationRegex(string portion, double &output){
                 myMathStr = holdRealStr;
                 return true;
             }
-            else{
-                return false;
-            }
 
-        }
+                return false;
+
+
+
     }
 
-    else if(portion[0] == '(' && portion[portion.length()-1] == ')'){
+    if(regex_match(portion, factorRegex)) {
+        output = stod(portion.substr(0,portion.length()-1));
+
+        output = tgamma(output+1);
+        return true;
+
+    }
+
+    if(regex_match(portion, logRegex)) {
+        string baseStr,numberStr;
+        int posOfBracket= portion.find(']',3);
+        baseStr = portion.substr(4, posOfBracket-4);
+        numberStr = portion.substr(posOfBracket+2, portion.length()-posOfBracket-3);
+        double base = stod(baseStr), number =  stod(numberStr);
+
+        output = log(number)/log(base);
+        return true;
+
+    }
+
+    if(portion[0] == '(' && portion[portion.length()-1] == ')'){
 
         string holdRealStr = myMathStr;
         myMathStr= portion.substr(1,portion.length()-2);
@@ -435,18 +456,23 @@ bool MathInterpter::checkEquationRegex(string portion, double &output){
             myMathStr = holdRealStr;
             return true;
         }
-        else{
+
             return false;
-        }
+
 
 
     }
 
-    else {
+    if( last_ans_.exists && portion=="ans") {
+        output = last_ans_.lastans;
+        return true;
+    }
+
+
 
         return false;
-    }
-    return false;
+
+
 }
 
 double MathInterpter::MainOperation(double &output){
@@ -461,7 +487,7 @@ double MathInterpter::MainOperation(double &output){
 
     bool isCorrect;
     for(int i=0; i<powerNum; i++){
-        isCorrect = FetchOperatorSides(PowerIndecies[0], Opert::power);
+        isCorrect = FetchOperatorSides(PowerIndecies[PowerIndecies.size()-1], Opert::power);
         if(!isCorrect)
             return false;
 
@@ -493,14 +519,25 @@ double MathInterpter::MainOperation(double &output){
         InterptmyMath();
     }
 
+
+
     try {
+        regex factorRegex("\\d+!");
+        if(regex_match(myMathStr,factorRegex)) {
+
+            throw "test";
+        }
+
         output = stod(myMathStr);
+        last_ans_.exists = true;
+        last_ans_.lastans= output;
         return true;
     }
 
-    catch (invalid_argument x){
+    catch (...){
         double myOutput;
-        bool its1argument = checkEquationRegex(myMathStr, myOutput );
+        bool its1argument = checkEquationRegex(myMathStr, myOutput);
+
         if(its1argument){
             output = myOutput;
             return true;
