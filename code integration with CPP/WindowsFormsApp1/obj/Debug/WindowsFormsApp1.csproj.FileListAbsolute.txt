@@ -1,0 +1,24 @@
+C:\Move here\math prob c# && c++ (DLL)\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe.config
+C:\Move here\math prob c# && c++ (DLL)\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
+C:\Move here\math prob c# && c++ (DLL)\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb
+C:\Move here\math prob c# && c++ (DLL)\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.AssemblyReference.cache
+C:\Move here\math prob c# && c++ (DLL)\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form1.resources
+C:\Move here\math prob c# && c++ (DLL)\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
+C:\Move here\math prob c# && c++ (DLL)\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache
+C:\Move here\math prob c# && c++ (DLL)\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+C:\Move here\math prob c# && c++ (DLL)\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
+C:\Move here\math prob c# && c++ (DLL)\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+C:\Move here\math prob c# && c++ (DLL)\WindowsFormsApp1\bin\Debug\solve my math problem.dll
+C:\Move here\math prob c# && c++ (DLL)\WindowsFormsApp1\bin\Debug\solve my math problem.pdb
+C:\Move here\math prob c# && c++ (DLL)\WindowsFormsApp1\obj\Debug\WindowsF.A1EEDF9B.Up2Date
+C:\Users\mahmo\OneDrive\Desktop\my math\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe.config
+C:\Users\mahmo\OneDrive\Desktop\my math\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
+C:\Users\mahmo\OneDrive\Desktop\my math\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb
+C:\Users\mahmo\OneDrive\Desktop\my math\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.AssemblyReference.cache
+C:\Users\mahmo\OneDrive\Desktop\my math\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form1.resources
+C:\Users\mahmo\OneDrive\Desktop\my math\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
+C:\Users\mahmo\OneDrive\Desktop\my math\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache
+C:\Users\mahmo\OneDrive\Desktop\my math\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\mahmo\OneDrive\Desktop\my math\WindowsFormsApp1\obj\Debug\WindowsF.A1EEDF9B.Up2Date
+C:\Users\mahmo\OneDrive\Desktop\my math\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
+C:\Users\mahmo\OneDrive\Desktop\my math\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb

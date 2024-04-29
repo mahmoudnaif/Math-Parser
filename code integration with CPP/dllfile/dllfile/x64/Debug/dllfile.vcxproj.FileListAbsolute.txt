@@ -1,0 +1,2 @@
+C:\DLL TEST 4\dllfile\dllfile\x64\Debug\dllfile.vcxproj.AssemblyReference.cache
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dllfile\x64\Debug\dllfile.vcxproj.AssemblyReference.cache

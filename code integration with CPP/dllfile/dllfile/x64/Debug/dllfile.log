@@ -1,0 +1,83 @@
+﻿  pch.cpp
+  dlllist.cpp
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(206,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(227,72): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(232,76): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(237,75): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(242,75): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(247,76): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(266,23): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(319,31): warning C4102: 'defualt': unreferenced label
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(465,32): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(510,33): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(511,32): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(512,31): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(513,31): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(514,31): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(517,29): warning C4018: '<': signed/unsigned mismatch
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(524,29): warning C4018: '<': signed/unsigned mismatch
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(538,29): warning C4018: '<': signed/unsigned mismatch
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(587,33): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(588,32): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(589,31): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(590,31): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(591,31): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(594,29): warning C4018: '<': signed/unsigned mismatch
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(601,29): warning C4018: '<': signed/unsigned mismatch
+  (compiling source file '/dlllist.cpp')
+  
+C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\dlllist.h(615,29): warning C4018: '<': signed/unsigned mismatch
+  (compiling source file '/dlllist.cpp')
+  
+  dllmain.cpp
+  Generating Code...
+  .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
+  dlllist.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+     Creating library C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\x64\Debug\dllfile.lib and object C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\x64\Debug\dllfile.exp
+  dllfile.vcxproj -> C:\Users\mahmo\OneDrive\Desktop\my math\dllfile\x64\Debug\dllfile.dll
