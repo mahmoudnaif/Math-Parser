@@ -1,6 +1,3 @@
-//
-// Created by mahmo on 4/22/2024.
-//
 
 #include "MathInterpter.h"
 
@@ -69,6 +66,7 @@ void MathInterpter::InterptmyMath()
 
 
     int captureOperators= 0;
+    int lastCapture = -1;
     for(int i=0; i<myMathStr.length(); i++){
         if(myMathStr[i] == '('){
             captureOperators++;
@@ -83,18 +81,23 @@ void MathInterpter::InterptmyMath()
 
             if(myMathStr[i] == '^'){
                 PowerIndecies.push_back(i);
+                lastCapture = i;
             }
             else if(myMathStr[i] == '*'){
                 MultiplayIndecies.push_back(i);
+                lastCapture = i;
             }
             else if(myMathStr[i] == '/'){
                 DivisionIndecies.push_back(i);
+                lastCapture = i;
             }
-            else if(myMathStr[i] == '+'){
+            else if(myMathStr[i] == '+'  && lastCapture+1!=i){
                 AdditionIndecies.push_back(i);
+                lastCapture = i;
             }
-            else if(myMathStr[i] == '-'){
+            else if(myMathStr[i] == '-' && lastCapture+1!=i){
                 SubstractIndecies.push_back(i);
+                lastCapture = i;
             }
         }
 
@@ -107,7 +110,7 @@ void MathInterpter::InterptmyMath()
 }
 
 bool MathInterpter::FetchOperatorSides(int mainIndex, int typeOfOperation){
-    if(myMathStr[0] == '+' || myMathStr[0] == '-' || myMathStr[0] == '*' ||myMathStr[0] == '/' || myMathStr[0] == '^'
+    if( myMathStr[0] == '*' ||myMathStr[0] == '/' || myMathStr[0] == '^'
        || myMathStr[myMathStr.length()-1] == '+' || myMathStr[myMathStr.length()-1] == '-' ||
        myMathStr[myMathStr.length()-1] == '*' ||myMathStr[myMathStr.length()-1] == '/' || myMathStr[myMathStr.length()-1] == '^'){
         \
@@ -244,7 +247,7 @@ for(int i=1; i<5; i++) {
 }
 
 bool MathInterpter::CalcPortion(string LHS, string RHS,int leftPos, int rightPos, int typeOfOperation ){
-    bool acceptedfourmela  = true;
+
     double myLHS,myRHS;
 
     bool LHSValid =  checkEquationRegex(LHS, myLHS);
@@ -255,6 +258,8 @@ bool MathInterpter::CalcPortion(string LHS, string RHS,int leftPos, int rightPos
 
         return false;
     }
+    myLHS = round(myLHS * 1e10) / 1e10;
+    myRHS = round(myRHS * 1e10) / 1e10;
     string insertInString;
     switch (typeOfOperation) {
         case Opert::power: {
@@ -324,6 +329,7 @@ bool MathInterpter::CalcPortion(string LHS, string RHS,int leftPos, int rightPos
         myMathStr = firstportion+ insertInString +secondportion;
 
     };
+    cout <<myMathStr<<endl;
     InterptmyMath();
     return true;
 }
@@ -332,7 +338,7 @@ bool MathInterpter::checkEquationRegex(string portion, double &output){
     //unfortunately switch statemtns are only available for integers and chars, so yeah get ready for the ultimate:
     // if else if else if else if else if else......
 
-    regex numOnlyRegex("(?:\\d+\\.?\\d*|\\.\\d+)");
+    regex numOnlyRegex("([-+]?\\d+\\.?\\d*|\\.?\\d+)");
     regex sinRegex("sin\\(.*\\)");
     regex cosRegex("cos\\(.*\\)");
     regex tanRegex("tan\\(.*\\)");
@@ -469,15 +475,16 @@ bool MathInterpter::checkEquationRegex(string portion, double &output){
     }
 
 
-
         return false;
 
 
 }
 
+
 double MathInterpter::MainOperation(double &output){
 
     transform(myMathStr.begin(), myMathStr.end(), myMathStr.begin(), ::tolower);
+    myMathStr.erase(std::remove(myMathStr.begin(), myMathStr.end(), ' '), myMathStr.end());
     InterptmyMath();
     unsigned int powerNum = PowerIndecies.size();
     unsigned int multNum = MultiplayIndecies.size();
@@ -525,16 +532,16 @@ double MathInterpter::MainOperation(double &output){
 
 
     try {
-        regex factorRegex("\\d+!");
-        if(regex_match(myMathStr,factorRegex)) {
-
-            throw "test";
-        }
-
-        output = stod(myMathStr);
+        regex numOnlyRegex("([-+]?\\d+\\.?\\d*|\\.?\\d+)");
+        if(regex_match(myMathStr, numOnlyRegex)) {
+            output = stod(myMathStr);
         last_ans_.exists = true;
         last_ans_.lastans= output;
         return true;
+        }
+        throw "not a num";
+
+
     }
 
     catch (...){
@@ -543,6 +550,7 @@ double MathInterpter::MainOperation(double &output){
 
         if(its1argument){
             output = myOutput;
+            output = round(output * 1e10) / 1e10;
             return true;
         }
 
@@ -567,6 +575,6 @@ void MathInterpter::UserUI(){
 
         startofProgram++;
         cout <<endl<< "please enter the equation: \nif you want to terminate enter 0" << endl;
-        cin >> myMathStr;
+        getline(cin >> ws, myMathStr);
     }
 }

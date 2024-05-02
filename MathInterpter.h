@@ -40,8 +40,9 @@ public:
 
     bool checkEquationRegex(string portion, double &output);
 
+    bool returnNum(string portion,double &output);
 
-void updateIndecies(string oldStr);
+    void updateIndecies(string oldStr);
 
 
     double MainOperation(double &output);
