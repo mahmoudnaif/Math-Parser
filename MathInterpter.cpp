@@ -329,7 +329,6 @@ bool MathInterpter::CalcPortion(string LHS, string RHS,int leftPos, int rightPos
         myMathStr = firstportion+ insertInString +secondportion;
 
     };
-    cout <<myMathStr<<endl;
     InterptmyMath();
     return true;
 }
@@ -338,12 +337,12 @@ bool MathInterpter::checkEquationRegex(string portion, double &output){
     //unfortunately switch statemtns are only available for integers and chars, so yeah get ready for the ultimate:
     // if else if else if else if else if else......
 
-    regex numOnlyRegex("([-+]?\\d+\\.?\\d*|\\.?\\d+)");
+    regex numOnlyRegex(R"(([-+]?\d+\.?\d*|\.?\d+))");
     regex sinRegex("sin\\(.*\\)");
     regex cosRegex("cos\\(.*\\)");
     regex tanRegex("tan\\(.*\\)");
     regex factorRegex("\\d+!");
-    regex logRegex("log\\[\\d+(\\.\\d+)?\\]\\(\\d+(\\.\\d+)?\\)");
+    regex logRegex(R"(log\[\d+(\.\d+)?\]\(\d+(\.\d+)?\))");
 
     if(regex_match(portion, numOnlyRegex)){
         output = stod(portion);
@@ -351,7 +350,7 @@ bool MathInterpter::checkEquationRegex(string portion, double &output){
     }
 
     if(regex_match(portion, sinRegex)){
-        regex sinNum("sin\\(\\s*(?:\\d+(?:\\.\\d+)?\\s*(?:/\\s*\\d+(?:\\.\\d+)?)?|\\d*(?:\\.\\d+)?\\s*/\\s*\\d+(?:\\.\\d+)?)\\s*\\)");
+        regex sinNum(R"(sin\(\s*(?:[+-]?\d+(?:\.\d+)?\s*(?:/\s*\d+(?:\.\d+)?)?|\d*(?:\.\d+)?\s*/\s*\d+(?:\.\d+)?)\s*\))");
         if(regex_match(portion, sinNum)){
             output = stod(portion.substr(4,portion.length()-5));
             output= sin(output * (M_PI/180));
@@ -378,7 +377,7 @@ bool MathInterpter::checkEquationRegex(string portion, double &output){
     }
 
     if(regex_match(portion, cosRegex)){
-        regex cosNum("cos\\(\\s*(?:\\d+(?:\\.\\d+)?\\s*(?:/\\s*\\d+(?:\\.\\d+)?)?|\\d*(?:\\.\\d+)?\\s*/\\s*\\d+(?:\\.\\d+)?)\\s*\\)");
+        regex cosNum(R"(cos\(\s*(?:[+-]?\d+(?:\.\d+)?\s*(?:/\s*\d+(?:\.\d+)?)?|\d*(?:\.\d+)?\s*/\s*\d+(?:\.\d+)?)\s*\))");
         if(regex_match(portion, cosNum)){
             output = stod(portion.substr(4,portion.length()-5));
             output= cos(output * (M_PI/180));
@@ -406,7 +405,7 @@ bool MathInterpter::checkEquationRegex(string portion, double &output){
     }
 
     if(regex_match(portion, tanRegex)){
-        regex tanNum("tan\\(\\s*(?:\\d+(?:\\.\\d+)?\\s*(?:/\\s*\\d+(?:\\.\\d+)?)?|\\d*(?:\\.\\d+)?\\s*/\\s*\\d+(?:\\.\\d+)?)\\s*\\)");
+        regex tanNum(R"(tan\(\s*(?:[+-]?\d+(?:\.\d+)?\s*(?:/\s*\d+(?:\.\d+)?)?|\d*(?:\.\d+)?\s*/\s*\d+(?:\.\d+)?)\s*\))");
         if(regex_match(portion, tanNum)){
             output = stod(portion.substr(4,portion.length()-5));
             output= tan(output * (M_PI/180));

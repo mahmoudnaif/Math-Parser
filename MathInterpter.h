@@ -50,7 +50,24 @@ public:
 
 
 
+  void TestArea() {
 
+          // Start timepoint
+          auto start = std::chrono::high_resolution_clock::now();
+            double output;
+            myMathStr = "cos(5)+cos(sin(3))- 5 + 5/4 *3*3*1*1/10*9*(4+3)*1*1*1*1*1*10";
+            MainOperation(output);
+            cout <<output;
+
+          auto end = std::chrono::high_resolution_clock::now();
+
+          std::chrono::duration<double> duration = end - start;
+
+
+          std::cout << "Execution time: " << duration.count() << " seconds" << std::endl;
+
+
+  }
   void UserUI();
 
 };
